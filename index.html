@@ -1,510 +1,447 @@
-/* ---------- CSS VARIABLES & RESET ---------- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-:root {
-  --bg: #020617;
-  --navy: #0F172A;
-  --surface: rgba(255,255,255,0.04);
-  --glass: rgba(255,255,255,0.06);
-  --glass-border: rgba(255,255,255,0.08);
-  --text: #f0f2f8;
-  --text-secondary: #b8c2e0;
-  --gold: #D4AF37;
-  --gold-glow: #e4c45a;
-  --radius: 28px;
-  --shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-html {
-  scroll-behavior: smooth;
-}
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font);
-  line-height: 1.6;
-  overflow-x: hidden;
-  cursor: default;
-}
-a {
-  color: inherit;
-  text-decoration: none;
-}
-button {
-  font-family: var(--font);
-  cursor: pointer;
-}
-img {
-  max-width: 100%;
-  display: block;
-}
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 28px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO -->
+  <title>Bookworm Study Club – Premium Library • Café • Prayer Room</title>
+  <meta name="description" content="Bookworm Study Club: a premium library with an inbuilt café and prayer room. Read • Focus • Recharge in a peaceful, luxurious environment." />
+  <link rel="canonical" href="https://bookwormstudyclub.com" />
+  <meta property="og:title" content="Bookworm Study Club – Premium Library & Café" />
+  <meta property="og:description" content="A peaceful premium library designed for readers, professionals, freelancers, researchers, and students." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  
+  <!-- Structured Data (Library) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Library",
+    "name": "Bookworm Study Club",
+    "description": "Premium library with café and prayer room",
+    "url": "https://bookwormstudyclub.com",
+    "telephone": "+91-9876543210",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Sector 17, Chandigarh",
+      "addressLocality": "Chandigarh",
+      "addressCountry": "IN"
+    }
+  }
+  </script>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-/* ---------- LOADING SCREEN ---------- */
-#loader {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-#loader.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-.loader-ring {
-  width: 56px;
-  height: 56px;
-  border: 3px solid rgba(212,175,55,0.15);
-  border-top: 3px solid var(--gold);
-  border-radius: 50%;
-  animation: spin 0.9s linear infinite;
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+  <!-- ====== LOADING SCREEN ====== -->
+  <div id="loader">
+    <div class="loader-ring"></div>
+    <p>LOADING</p>
+  </div>
 
-/* ---------- SCROLL PROGRESS ---------- */
-#progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--gold), #f7d97e);
-  z-index: 9999;
-  width: 0%;
-  transition: width 0.1s;
-}
+  <!-- ====== SCROLL PROGRESS BAR ====== -->
+  <div id="progress-bar"></div>
 
-/* ---------- MOUSE GLOW ---------- */
-#glow {
-  position: fixed;
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, rgba(212,175,55,0.07) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.2s;
-}
+  <!-- ====== MOUSE GLOW ====== -->
+  <div id="glow"></div>
 
-/* ---------- STICKY NAV ---------- */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 999;
-  padding: 14px 28px;
-  backdrop-filter: blur(18px);
-  background: rgba(2,6,23,0.6);
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: background 0.3s, box-shadow 0.3s;
-}
-nav.scrolled {
-  background: rgba(2,6,23,0.88);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-}
-.logo {
-  font-weight: 700;
-  font-size: 1.6rem;
-  letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #f0f2f8, var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.nav-links {
-  display: flex;
-  gap: 32px;
-  list-style: none;
-  font-weight: 500;
-  font-size: 0.95rem;
-}
-.nav-links a {
-  color: var(--text-secondary);
-  transition: color 0.2s;
-}
-.nav-links a:hover {
-  color: var(--gold);
-}
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-}
-.hamburger span {
-  width: 26px;
-  height: 2px;
-  background: white;
-  border-radius: 4px;
-  transition: 0.3s;
-}
-.mobile-menu {
-  display: none;
-  flex-direction: column;
-  background: rgba(2,6,23,0.96);
-  backdrop-filter: blur(20px);
-  padding: 24px 28px;
-  gap: 20px;
-  position: absolute;
-  top: 70px;
-  left: 0;
-  width: 100%;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-.mobile-menu.open {
-  display: flex;
-}
-.mobile-menu a {
-  color: var(--text-secondary);
-  font-size: 1.1rem;
-  padding: 6px 0;
-}
-.mobile-menu a:hover {
-  color: var(--gold);
-}
+  <!-- ====== NAVIGATION ====== -->
+  <nav id="navbar">
+    <div class="logo">📖 Bookworm</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#facilities">Facilities</a></li>
+      <li><a href="#plans">Plans</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#about">About</a>
+      <a href="#facilities">Facilities</a>
+      <a href="#plans">Plans</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 
-/* ---------- BUTTONS ---------- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 28px;
-  border-radius: 60px;
-  font-weight: 600;
-  border: none;
-  background: var(--glass);
-  backdrop-filter: blur(4px);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.08);
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-.btn-gold {
-  background: linear-gradient(135deg, #d4af37, #b8962e);
-  border: none;
-  box-shadow: 0 8px 24px rgba(212,175,55,0.3);
-  color: #0F172A;
-}
-.btn-gold:hover {
-  transform: scale(1.03);
-  box-shadow: 0 12px 32px rgba(212,175,55,0.45);
-}
-.btn-ghost {
-  border-color: rgba(255,255,255,0.15);
-}
-.btn-ghost:hover {
-  background: rgba(255,255,255,0.06);
-}
-.ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  transform: scale(0);
-  animation: rippleAnim 0.6s linear;
-  pointer-events: none;
-}
-@keyframes rippleAnim {
-  to { transform: scale(4); opacity: 0; }
-}
+  <!-- ====== HERO SECTION ====== -->
+  <section id="hero">
+    <div class="hero-bg-blob"></div>
+    <div class="container hero-content">
+      <h1><span class="gold">Read</span> • <span class="gold">Focus</span> • <span class="gold">Recharge</span></h1>
+      <div class="typing-wrap" id="typingText"></div>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="#plans" class="btn btn-gold">Join Now</a>
+        <a href="#about" class="btn btn-ghost">Visit Library</a>
+      </div>
+      <div class="stats">
+        <div><span id="statBooks">0</span><small>Books</small></div>
+        <div><span id="statMembers">0</span><small>Members</small></div>
+        <div><span id="statCabins">0</span><small>Study Cabins</small></div>
+      </div>
+    </div>
+    <div class="scroll-indicator">⌄ SCROLL</div>
+  </section>
 
-/* ---------- SECTIONS ---------- */
-section {
-  padding: 90px 0;
-  position: relative;
-  z-index: 2;
-}
-.section-title {
-  font-size: 3rem;
-  font-weight: 700;
-  letter-spacing: -1px;
-  background: linear-gradient(135deg, #fff, var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 16px;
-}
-.section-sub {
-  color: var(--text-secondary);
-  max-width: 560px;
-  font-size: 1.1rem;
-}
-.glass-card {
-  background: var(--glass);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
-  padding: 32px;
-  transition: var(--transition);
-  box-shadow: var(--shadow);
-}
-.glass-card:hover {
-  transform: translateY(-6px);
-  background: rgba(255,255,255,0.08);
-}
-.feature-icon {
-  font-size: 2.4rem;
-  margin-bottom: 10px;
-}
+  <!-- ====== ABOUT SECTION ====== -->
+  <section id="about">
+    <div class="container reveal">
+      <h2 class="section-title">A sanctuary for readers</h2>
+      <p class="section-sub">Bookworm Study Club is a premium library designed for deep focus, comfort, and community.</p>
+      <div class="grid-2" style="margin-top:30px;">
+        <div class="glass-card">
+          <h3>📖 Peaceful Environment</h3>
+          <p>Silent zones, soft lighting, and ergonomic seating for uninterrupted reading.</p>
+        </div>
+        <div class="glass-card">
+          <h3>☕ Inbuilt Café</h3>
+          <p>Enjoy freshly brewed coffee, tea, and light snacks while you read.</p>
+        </div>
+        <div class="glass-card">
+          <h3>🕌 Prayer Room</h3>
+          <p>A quiet, serene space for reflection and prayer.</p>
+        </div>
+        <div class="glass-card">
+          <h3>📶 High-Speed Wi-Fi</h3>
+          <p>Stay connected with blazing fast internet throughout the library.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-/* ---------- HERO ---------- */
-#hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  padding-top: 80px;
-}
-.hero-bg-blob {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(212,175,55,0.12), transparent 70%);
-  border-radius: 50%;
-  top: -20%;
-  right: -10%;
-  animation: floatBlob 16s infinite alternate ease-in-out;
-  z-index: 0;
-}
-@keyframes floatBlob {
-  0% { transform: translate(0,0) scale(1); }
-  100% { transform: translate(40px,-40px) scale(1.15); }
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 720px;
-}
-.hero-content h1 {
-  font-size: 4.8rem;
-  font-weight: 800;
-  letter-spacing: -2px;
-  line-height: 1.05;
-}
-.hero-content .gold {
-  color: var(--gold);
-}
-.typing-wrap {
-  font-size: 1.5rem;
-  color: var(--text-secondary);
-  min-height: 3rem;
-  margin: 20px 0 28px;
-}
-.stats {
-  display: flex;
-  gap: 40px;
-  margin-top: 40px;
-}
-.stats span {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: white;
-}
-.stats small {
-  display: block;
-  font-weight: 400;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-.scroll-indicator {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  color: var(--text-secondary);
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  animation: bounceDown 2s infinite;
-}
-@keyframes bounceDown {
-  0%,100%{transform:translateX(-50%) translateY(0);}
-  50%{transform:translateX(-50%) translateY(8px);}
-}
+  <!-- ====== FACILITIES SECTION ====== -->
+  <section id="facilities">
+    <div class="container reveal">
+      <h2 class="section-title">Premium facilities</h2>
+      <div class="grid-3">
+        <div class="glass-card">
+          <div class="feature-icon">📚</div>
+          <h4>Separate Study Cabins</h4>
+          <p>Private, soundproof cabins for focused work.</p>
+        </div>
+        <div class="glass-card">
+          <div class="feature-icon">📖</div>
+          <h4>Quiet Reading Space</h4>
+          <p>Expansive halls with natural light and silence.</p>
+        </div>
+        <div class="glass-card">
+          <div class="feature-icon">☕</div>
+          <h4>Inbuilt Café</h4>
+          <p>Premium beverages and snacks.</p>
+        </div>
+        <div class="glass-card">
+          <div class="feature-icon">🕌</div>
+          <h4>Prayer Room</h4>
+          <p>Calm, clean, and private.</p>
+        </div>
+        <div class="glass-card">
+          <div class="feature-icon">🔒</div>
+          <h4>Locker Facility</h4>
+          <p>Secure lockers for your belongings.</p>
+        </div>
+        <div class="glass-card">
+          <div class="feature-icon">✏️</div>
+          <h4>Stationery Available</h4>
+          <p>Pens, notebooks, and more at the desk.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-/* ---------- GRID ---------- */
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 28px;
-  margin-top: 40px;
-}
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 28px;
-}
+  <!-- ====== AMENITIES SECTION ====== -->
+  <section id="amenities">
+    <div class="container reveal">
+      <h2 class="section-title">Amenities</h2>
+      <div class="grid-3">
+        <div class="glass-card" style="text-align:center;">
+          <span style="font-size:2.8rem;">📶</span>
+          <h4>High-Speed Wi-Fi</h4>
+        </div>
+        <div class="glass-card" style="text-align:center;">
+          <span style="font-size:2.8rem;">🔌</span>
+          <h4>Charging Stations</h4>
+        </div>
+        <div class="glass-card" style="text-align:center;">
+          <span style="font-size:2.8rem;">❄️</span>
+          <h4>Air Conditioning</h4>
+        </div>
+        <div class="glass-card" style="text-align:center;">
+          <span style="font-size:2.8rem;">🚗</span>
+          <h4>Car Parking</h4>
+        </div>
+      </div>
+    </div>
+  </section>
 
-/* ---------- MEMBERSHIP CARDS ---------- */
-.plan-card {
-  position: relative;
-  text-align: center;
-}
-.plan-card .price {
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: var(--gold);
-}
-.plan-card .ribbon {
-  position: absolute;
-  top: -8px;
-  right: 20px;
-  background: var(--gold);
-  color: #0F172A;
-  padding: 4px 18px;
-  border-radius: 40px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-.plan-card .save {
-  color: #4ade80;
-  font-weight: 600;
-}
+  <!-- ====== WHY CHOOSE US ====== -->
+  <section id="why">
+    <div class="container reveal">
+      <h2 class="section-title">Why choose us</h2>
+      <div class="grid-3">
+        <div class="glass-card">
+          <h4>🧘 Peaceful Atmosphere</h4>
+          <p>Designed for calm and concentration.</p>
+        </div>
+        <div class="glass-card">
+          <h4>⚡ Fast Internet</h4>
+          <p>Fibre-optic Wi-Fi with 99.9% uptime.</p>
+        </div>
+        <div class="glass-card">
+          <h4>🪑 Comfortable Seating</h4>
+          <p>Ergonomic chairs and spacious desks.</p>
+        </div>
+        <div class="glass-card">
+          <h4>✨ Modern Facilities</h4>
+          <p>Smart lighting, power outlets, and more.</p>
+        </div>
+        <div class="glass-card">
+          <h4>🛡️ Safe Environment</h4>
+          <p>24/7 security and CCTV coverage.</p>
+        </div>
+        <div class="glass-card">
+          <h4>🏆 Premium Experience</h4>
+          <p>Luxury feel at an affordable price.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-/* ---------- GALLERY ---------- */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 18px;
-  margin-top: 30px;
-}
-.gallery-item {
-  border-radius: 20px;
-  overflow: hidden;
-  background: #1a1f2e;
-  aspect-ratio: 4/3;
-  transition: var(--transition);
-  cursor: pointer;
-  position: relative;
-}
-.gallery-item:hover {
-  transform: scale(1.02);
-}
-.gallery-item .placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #2a3042, #181e2b);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6b7899;
-  font-size: 0.9rem;
-}
+  <!-- ====== MEMBERSHIP PLANS ====== -->
+  <section id="plans">
+    <div class="container reveal">
+      <h2 class="section-title">Membership plans</h2>
+      <div class="grid-3">
+        <div class="glass-card plan-card">
+          <h3>Registration</h3>
+          <div class="price">₹500</div>
+          <p>One-time fee</p>
+          <a href="#" class="btn btn-ghost" style="margin-top:16px;">Register</a>
+        </div>
+        <div class="glass-card plan-card">
+          <h3>Monthly</h3>
+          <div class="price">₹1599</div>
+          <p>Per month</p>
+          <a href="#" class="btn btn-ghost" style="margin-top:16px;">Choose</a>
+        </div>
+        <div class="glass-card plan-card" style="border-color:var(--gold);">
+          <div class="ribbon">Best Value</div>
+          <h3>Bi-Annual</h3>
+          <div class="price">₹7999</div>
+          <p class="save">Save ₹1601 · 16.7% OFF</p>
+          <a href="#" class="btn btn-gold" style="margin-top:16px;">Join</a>
+        </div>
+        <div class="glass-card plan-card" style="border-color:var(--gold);">
+          <div class="ribbon">Premium</div>
+          <h3>Annual</h3>
+          <div class="price">₹15999</div>
+          <p class="save">Save ₹3201 · 16.7% OFF</p>
+          <a href="#" class="btn btn-gold" style="margin-top:16px;">Join</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-/* ---------- LIGHTBOX ---------- */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(20px);
-  z-index: 9999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-.lightbox.open {
-  display: flex;
-}
+  <!-- ====== GALLERY ====== -->
+  <section id="gallery">
+    <div class="container reveal">
+      <h2 class="section-title">Gallery</h2>
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-item" data-label="Library">
+          <div class="placeholder">📸 Library</div>
+        </div>
+        <div class="gallery-item" data-label="Study Cabins">
+          <div class="placeholder">🪑 Study Cabins</div>
+        </div>
+        <div class="gallery-item" data-label="Café">
+          <div class="placeholder">☕ Café</div>
+        </div>
+        <div class="gallery-item" data-label="Prayer Room">
+          <div class="placeholder">🕌 Prayer Room</div>
+        </div>
+        <div class="gallery-item" data-label="Reading Lounge">
+          <div class="placeholder">🛋️ Reading Lounge</div>
+        </div>
+        <div class="gallery-item" data-label="Bookshelves">
+          <div class="placeholder">📚 Bookshelves</div>
+        </div>
+        <div class="gallery-item" data-label="Parking">
+          <div class="placeholder">🚗 Parking</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-/* ---------- TESTIMONIALS ---------- */
-.testimonial-slider {
-  display: flex;
-  gap: 28px;
-  overflow-x: auto;
-  padding: 16px 0;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-.testimonial-slider .glass-card {
-  min-width: 300px;
-  flex-shrink: 0;
-  scroll-snap-align: start;
-}
-.stars {
-  color: var(--gold);
-  letter-spacing: 2px;
-}
+  <!-- ====== LIGHTBOX ====== -->
+  <div class="lightbox" id="lightbox">
+    <span style="position:absolute;top:30px;right:40px;font-size:2rem;cursor:pointer;color:white;z-index:10;" id="closeLightbox">✕</span>
+    <div style="background:#1a1f2e;border-radius:20px;padding:40px;max-width:80%;max-height:80%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:2rem;text-align:center;" id="lightboxContent">
+      📸 Gallery Image
+    </div>
+  </div>
 
-/* ---------- FAQ ---------- */
-.faq-item {
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  padding: 18px 0;
-}
-.faq-question {
-  display: flex;
-  justify-content: space-between;
-  font-weight: 600;
-  cursor: pointer;
-  color: white;
-}
-.faq-question span {
-  transition: transform 0.3s;
-}
-.faq-question.active span {
-  transform: rotate(45deg);
-}
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, padding 0.3s;
-  color: var(--text-secondary);
-}
-.faq-answer.open {
-  max-height: 200px;
-  padding-top: 12px;
-}
+  <!-- ====== TESTIMONIALS ====== -->
+  <section id="testimonials">
+    <div class="container reveal">
+      <h2 class="section-title">Member stories</h2>
+      <div class="testimonial-slider" id="testimonialSlider">
+        <div class="glass-card">
+          <div class="stars">★★★★★</div>
+          <p>"The most peaceful library I've ever been to. The café is a bonus."</p>
+          <strong>— Ananya, Freelancer</strong>
+        </div>
+        <div class="glass-card">
+          <div class="stars">★★★★★</div>
+          <p>"I wrote my entire book here. The silence and comfort are unmatched."</p>
+          <strong>— Vikram, Author</strong>
+        </div>
+        <div class="glass-card">
+          <div class="stars">★★★★★</div>
+          <p>"Prayer room and lockers – they've thought of everything."</p>
+          <strong>— Fatima, Researcher</strong>
+        </div>
+        <div class="glass-card">
+          <div class="stars">★★★★★</div>
+          <p>"Best study space in the city. The ambiance is just perfect."</p>
+          <strong>— Rahul, UPSC Aspirant</strong>
+        </div>
+      </div>
+    </div>
+  </section>
 
-/* ---------- CONTACT ---------- */
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  padding: 14px 18px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px;
-  color: white;
-  font-size: 1rem;
-  transition: 0.2s;
-  margin-bottom: 14px;
-}
-.contact-form input:focus,
-.contact-form textarea:focus {
-  outline: none;
-  border-color: var(--gold);
-  background: rgba(255,255,255,0.07);
-}
+  <!-- ====== STATISTICS ====== -->
+  <section id="statistics">
+    <div class="container reveal">
+      <h2 class="section-title">By the numbers</h2>
+      <div class="grid-3" style="text-align:center;">
+        <div>
+          <span id="counterBooks" class="counter" style="font-size:3rem;font-weight:700;">0</span>
+          <p>Books</p>
+        </div>
+        <div>
+          <span id="counterMembers" class="counter" style="font-size:3rem;font-weight:700;">0</span>
+          <p>Members</p>
+        </div>
+        <div>
+          <span id="counterCabins" class="counter" style="font-size:3rem;font-weight:700;">0</span>
+          <p>Study Cabins</p>
+        </div>
+        <div>
+          <span id="counterVisitors" class="counter" style="font-size:3rem;font-weight:700;">0</span>
+          <p>Daily Visitors</p>
+        </div>
+        <div>
+          <span id="counterYears" class="counter" style="font-size:3rem;font-weight:700;">0</span>
+          <p>Years Serving</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-/* ---------- FOOTER ---------- */
-footer {
-  border-top: 1px solid rgba(255,255,255,0.04);
-  padding: 50px 0 30px;
-  background: rgba(0,0,0,0.3);
-}
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap:
+  <!-- ====== FAQ ====== -->
+  <section id="faq">
+    <div class="container reveal">
+      <h2 class="section-title">Frequently asked</h2>
+      <div class="faq-item">
+        <div class="faq-question">What are the opening hours? <span>+</span></div>
+        <div class="faq-answer">We are open 7 AM – 11 PM, Monday to Sunday.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How do I become a member? <span>+</span></div>
+        <div class="faq-answer">You can register online or visit our front desk.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Is Wi-Fi included? <span>+</span></div>
+        <div class="faq-answer">Yes, high-speed Wi-Fi is free for all members.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Is there parking available? <span>+</span></div>
+        <div class="faq-answer">Yes, we have a dedicated car park for members.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Is the prayer room open to all? <span>+</span></div>
+        <div class="faq-answer">Yes, it is available for all members at all times.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I bring food inside? <span>+</span></div>
+        <div class="faq-answer">Food is only allowed in the café area.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Are lockers available? <span>+</span></div>
+        <div class="faq-answer">Yes, lockers are available on a first-come basis.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTACT ====== -->
+  <section id="contact">
+    <div class="container reveal">
+      <h2 class="section-title">Visit us</h2>
+      <div class="grid-2">
+        <div class="contact-form">
+          <input type="text" placeholder="Your name" />
+          <input type="email" placeholder="Email" />
+          <textarea rows="4" placeholder="Message"></textarea>
+          <button class="btn btn-gold" style="margin-top:14px;">Send message</button>
+          <div style="margin-top:20px;display:flex;gap:20px;flex-wrap:wrap;">
+            <span>📞 +91-9876543210</span>
+            <span>✉️ hello@bookworm.com</span>
+            <span>💬 WhatsApp</span>
+          </div>
+          <div style="margin-top:12px;color:var(--text-secondary);">
+            <strong>Opening hours:</strong> 7 AM – 11 PM · Mon-Sun
+          </div>
+          <div style="color:var(--text-secondary);">📍 Sector 17, Chandigarh</div>
+        </div>
+        <div style="background:#1a1f2e;border-radius:20px;padding:20px;min-height:200px;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);flex-direction:column;">
+          <span style="font-size:3rem;">📍</span>
+          <p>Google Maps placeholder</p>
+          <p style="font-size:0.8rem;color:#6b7899;">Sector 17, Chandigarh</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="logo" style="font-size:1.8rem;">📖 Bookworm</div>
+        <p style="color:var(--text-secondary);margin-top:10px;">Premium library • Café • Prayer room</p>
+      </div>
+      <div>
+        <h4>Quick links</h4>
+        <a href="#about">About</a><br />
+        <a href="#facilities">Facilities</a><br />
+        <a href="#plans">Plans</a>
+      </div>
+      <div>
+        <h4>Social</h4>
+        <a href="#">Instagram</a><br />
+        <a href="#">YouTube</a><br />
+        <a href="#">Twitter</a>
+      </div>
+      <div>
+        <h4>Newsletter</h4>
+        <input type="email" placeholder="Your email" />
+        <button>Subscribe</button>
+      </div>
+    </div>
+    <div style="text-align:center;padding-top:30px;border-top:1px solid rgba(255,255,255,0.04);margin-top:30px;color:var(--text-secondary);font-size:0.9rem;">
+      © 2026 Bookworm Study Club. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- ====== BACK TO TOP ====== -->
+  <button id="back-top">↑</button>
+
+  <!-- ====== SCRIPTS ====== -->
+  <script src="script.js"></script>
+
+</body>
+</html>
