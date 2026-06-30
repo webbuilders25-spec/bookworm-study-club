@@ -1,840 +1,901 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bookworm Study Club · Premium Library & Café</title>
-  <meta name="description" content="Bookworm Study Club – premium library, café, prayer room. Read, focus, recharge." />
-  <link rel="canonical" href="https://bookwormstudyclub.com" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookworm Study Club – Premium Library & Café</title>
+    <meta name="description" content="Bookworm Study Club: premium library with café and prayer room. Read • Focus • Recharge." />
+    <link rel="canonical" href="https://bookwormstudyclub.com" />
 
-  <!-- Google Fonts (Inter) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 
-  <style>
-    /* ----- RESET & VARIABLES ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    :root {
-      --bg: #020617;
-      --navy: #0F172A;
-      --surface: rgba(255,255,255,0.04);
-      --glass: rgba(255,255,255,0.06);
-      --glass-border: rgba(255,255,255,0.08);
-      --text: #f0f2f8;
-      --text-secondary: #b8c2e0;
-      --gold: #D4AF37;
-      --gold-glow: #e4c45a;
-      --radius: 28px;
-      --shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
-      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      line-height: 1.6;
-      overflow-x: hidden;
-      cursor: default;
-    }
-    a { color: inherit; text-decoration: none; }
-    button { font-family: var(--font); cursor: pointer; border: none; background: none; }
-    img { max-width: 100%; display: block; }
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 28px;
-    }
+    <style>
+        /* ----- RESET & VARIABLES ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg: #020617;
+            --navy: #0F172A;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text: #f0f2f8;
+            --text-secondary: #b8c2e0;
+            --gold: #D4AF37;
+            --radius: 24px;
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        button {
+            font-family: var(--font);
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
 
-    /* ----- LOADER ----- */
-    #loader {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-    }
-    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .loader-ring {
-      width: 56px;
-      height: 56px;
-      border: 3px solid rgba(212,175,55,0.15);
-      border-top: 3px solid var(--gold);
-      border-radius: 50%;
-      animation: spin 0.9s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    #loader p {
-      color: var(--gold);
-      margin-top: 20px;
-      font-weight: 300;
-      letter-spacing: 3px;
-      font-size: 0.9rem;
-    }
+        /* ----- LOADER ----- */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .loader-ring {
+            width: 56px;
+            height: 56px;
+            border: 3px solid rgba(212, 175, 55, 0.15);
+            border-top: 3px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        #loader p {
+            color: var(--gold);
+            margin-top: 20px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            font-size: 0.85rem;
+        }
 
-    /* ----- PROGRESS BAR ----- */
-    #progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--gold), #f7d97e);
-      z-index: 9999;
-      width: 0%;
-      transition: width 0.1s;
-    }
+        /* ----- PROGRESS BAR ----- */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), #f7d97e);
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s;
+        }
 
-    /* ----- MOUSE GLOW (refined) ----- */
-    #glow {
-      position: fixed;
-      width: 420px;
-      height: 420px;
-      background: radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-      transform: translate(-50%, -50%);
-      transition: opacity 0.2s;
-      will-change: transform;
-    }
+        /* ----- MOUSE GLOW ----- */
+        #glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+        }
 
-    /* ----- NAVIGATION (refined) ----- */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 999;
-      padding: 14px 28px;
-      backdrop-filter: blur(20px);
-      background: rgba(2,6,23,0.55);
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: background 0.3s, box-shadow 0.3s;
-    }
-    nav.scrolled {
-      background: rgba(2,6,23,0.88);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-    }
-    .logo {
-      font-weight: 700;
-      font-size: 1.7rem;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #f0f2f8 30%, var(--gold) 80%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-    }
-    .nav-links a {
-      color: var(--text-secondary);
-      transition: color 0.2s, transform 0.2s;
-      position: relative;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: var(--gold);
-      transition: width 0.3s;
-    }
-    .nav-links a:hover {
-      color: #fff;
-    }
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-    .hamburger span {
-      width: 26px;
-      height: 2px;
-      background: white;
-      border-radius: 4px;
-      transition: 0.3s;
-    }
-    .mobile-menu {
-      display: none;
-      flex-direction: column;
-      background: rgba(2,6,23,0.96);
-      backdrop-filter: blur(20px);
-      padding: 24px 28px;
-      gap: 20px;
-      position: absolute;
-      top: 70px;
-      left: 0;
-      width: 100%;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-      padding: 6px 0;
-      transition: color 0.2s;
-    }
-    .mobile-menu a:hover { color: var(--gold); }
+        /* ----- NAVIGATION ----- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            padding: 14px 28px;
+            backdrop-filter: blur(18px);
+            background: rgba(2, 6, 23, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        nav.scrolled {
+            background: rgba(2, 6, 23, 0.9);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #f0f2f8, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            transition: color 0.2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover {
+            color: #fff;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .hamburger span {
+            width: 26px;
+            height: 2px;
+            background: white;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: rgba(2, 6, 23, 0.97);
+            backdrop-filter: blur(20px);
+            padding: 24px 28px;
+            gap: 20px;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .mobile-menu.open {
+            display: flex;
+        }
+        .mobile-menu a {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            padding: 6px 0;
+            transition: color 0.2s;
+        }
+        .mobile-menu a:hover {
+            color: var(--gold);
+        }
 
-    /* ----- BUTTONS (refined) ----- */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 30px;
-      border-radius: 60px;
-      font-weight: 600;
-      border: none;
-      background: var(--glass);
-      backdrop-filter: blur(4px);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-      font-size: 0.95rem;
-    }
-    .btn-gold {
-      background: linear-gradient(135deg, #d4af37, #b8962e);
-      border: none;
-      box-shadow: 0 8px 24px rgba(212,175,55,0.3);
-      color: #0F172A;
-    }
-    .btn-gold:hover {
-      transform: scale(1.03);
-      box-shadow: 0 12px 32px rgba(212,175,55,0.5);
-    }
-    .btn-ghost {
-      border-color: rgba(255,255,255,0.15);
-    }
-    .btn-ghost:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.25);
-    }
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.2);
-      transform: scale(0);
-      animation: rippleAnim 0.6s linear;
-      pointer-events: none;
-    }
-    @keyframes rippleAnim {
-      to { transform: scale(4); opacity: 0; }
-    }
+        /* ----- BUTTONS ----- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 30px;
+            border-radius: 60px;
+            font-weight: 600;
+            border: none;
+            background: var(--glass);
+            backdrop-filter: blur(4px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: var(--transition);
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #d4af37, #b8962e);
+            border: none;
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+            color: #0F172A;
+        }
+        .btn-gold:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.5);
+        }
+        .btn-ghost {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
 
-    /* ----- SECTIONS (refined spacing) ----- */
-    section {
-      padding: 90px 0;
-      position: relative;
-      z-index: 2;
-    }
-    .section-title {
-      font-size: 3.2rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, #fff 20%, var(--gold) 80%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 12px;
-    }
-    .section-sub {
-      color: var(--text-secondary);
-      max-width: 560px;
-      font-size: 1.15rem;
-    }
-    .glass-card {
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
-      padding: 32px;
-      transition: var(--transition);
-      box-shadow: var(--shadow);
-    }
-    .glass-card:hover {
-      transform: translateY(-6px);
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(212,175,55,0.2);
-    }
-    .feature-icon {
-      font-size: 2.6rem;
-      margin-bottom: 10px;
-    }
+        /* ----- SECTIONS ----- */
+        section {
+            padding: 90px 0;
+            position: relative;
+            z-index: 2;
+        }
+        .section-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #fff 20%, var(--gold) 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+        .section-sub {
+            color: var(--text-secondary);
+            max-width: 560px;
+            font-size: 1.15rem;
+        }
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        .glass-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+        .feature-icon {
+            font-size: 2.6rem;
+            margin-bottom: 10px;
+        }
 
-    /* ----- HERO (refined) ----- */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      padding-top: 80px;
-    }
-    .hero-bg-blob {
-      position: absolute;
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(212,175,55,0.10), transparent 70%);
-      border-radius: 50%;
-      top: -20%;
-      right: -10%;
-      animation: floatBlob 18s infinite alternate ease-in-out;
-      z-index: 0;
-    }
-    @keyframes floatBlob {
-      0% { transform: translate(0,0) scale(1); }
-      100% { transform: translate(50px,-50px) scale(1.2); }
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 760px;
-    }
-    .hero-content h1 {
-      font-size: 4.8rem;
-      font-weight: 800;
-      letter-spacing: -2px;
-      line-height: 1.05;
-    }
-    .hero-content .gold { color: var(--gold); }
-    .typing-wrap {
-      font-size: 1.5rem;
-      color: var(--text-secondary);
-      min-height: 3.5rem;
-      margin: 20px 0 28px;
-      font-weight: 300;
-    }
-    .stats {
-      display: flex;
-      gap: 48px;
-      margin-top: 40px;
-    }
-    .stats span {
-      font-size: 2rem;
-      font-weight: 700;
-      color: white;
-      letter-spacing: -0.5px;
-    }
-    .stats small {
-      display: block;
-      font-weight: 400;
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-top: 2px;
-    }
-    .scroll-indicator {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-secondary);
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      animation: bounceDown 2s infinite;
-    }
-    @keyframes bounceDown {
-      0%,100%{transform:translateX(-50%) translateY(0);}
-      50%{transform:translateX(-50%) translateY(8px);}
-    }
+        /* ----- HERO ----- */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        .hero-bg-blob {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08), transparent 70%);
+            border-radius: 50%;
+            top: -20%;
+            right: -10%;
+            animation: floatBlob 18s infinite alternate ease-in-out;
+            z-index: 0;
+        }
+        @keyframes floatBlob {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(50px, -50px) scale(1.2);
+            }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 760px;
+        }
+        .hero-content h1 {
+            font-size: 4.8rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.05;
+        }
+        .hero-content .gold {
+            color: var(--gold);
+        }
+        .typing-wrap {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            min-height: 3.5rem;
+            margin: 20px 0 28px;
+            font-weight: 300;
+        }
+        .stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 40px;
+        }
+        .stats span {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+        .stats small {
+            display: block;
+            font-weight: 400;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            animation: bounceDown 2s infinite;
+        }
+        @keyframes bounceDown {
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(8px);
+            }
+        }
 
-    /* ----- GRID ----- */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 28px;
-      margin-top: 40px;
-    }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2,1fr);
-      gap: 28px;
-    }
+        /* ----- GRID ----- */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 40px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
 
-    /* ----- PLANS (refined) ----- */
-    .plan-card {
-      position: relative;
-      text-align: center;
-      padding: 36px 28px;
-    }
-    .plan-card .price {
-      font-size: 2.6rem;
-      font-weight: 700;
-      color: var(--gold);
-      margin: 8px 0;
-    }
-    .plan-card .ribbon {
-      position: absolute;
-      top: -8px;
-      right: 20px;
-      background: var(--gold);
-      color: #0F172A;
-      padding: 4px 18px;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .plan-card .save {
-      color: #4ade80;
-      font-weight: 600;
-    }
-    .plan-card .btn {
-      margin-top: 16px;
-    }
+        /* ----- PLANS ----- */
+        .plan-card {
+            position: relative;
+            text-align: center;
+            padding: 36px 28px;
+        }
+        .plan-card .price {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 8px 0;
+        }
+        .plan-card .ribbon {
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            background: var(--gold);
+            color: #0F172A;
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .plan-card .save {
+            color: #4ade80;
+            font-weight: 600;
+        }
+        .plan-card .btn {
+            margin-top: 16px;
+        }
 
-    /* ----- GALLERY (refined) ----- */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 18px;
-      margin-top: 30px;
-    }
-    .gallery-item {
-      border-radius: 20px;
-      overflow: hidden;
-      background: #1a1f2e;
-      aspect-ratio: 4/3;
-      transition: var(--transition);
-      cursor: pointer;
-      position: relative;
-      border: 1px solid rgba(255,255,255,0.04);
-    }
-    .gallery-item:hover {
-      transform: scale(1.02);
-      border-color: rgba(212,175,55,0.3);
-    }
-    .gallery-item .placeholder {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #2a3042, #181e2b);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #8a96b9;
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
+        /* ----- GALLERY ----- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-top: 30px;
+        }
+        .gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            background: #1a1f2e;
+            aspect-ratio: 4/3;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        .gallery-item .placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2a3042, #181e2b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8a96b9;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
 
-    /* ----- LIGHTBOX ----- */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.88);
-      backdrop-filter: blur(24px);
-      z-index: 9999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-    .lightbox.open { display: flex; }
+        /* ----- LIGHTBOX ----- */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(24px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox.open {
+            display: flex;
+        }
 
-    /* ----- TESTIMONIALS (refined) ----- */
-    .testimonial-slider {
-      display: flex;
-      gap: 28px;
-      overflow-x: auto;
-      padding: 16px 0 20px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: var(--gold) transparent;
-    }
-    .testimonial-slider::-webkit-scrollbar {
-      height: 4px;
-    }
-    .testimonial-slider::-webkit-scrollbar-thumb {
-      background: var(--gold);
-      border-radius: 10px;
-    }
-    .testimonial-slider .glass-card {
-      min-width: 300px;
-      flex-shrink: 0;
-      scroll-snap-align: start;
-    }
-    .stars {
-      color: var(--gold);
-      letter-spacing: 2px;
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
+        /* ----- TESTIMONIALS ----- */
+        .testimonial-slider {
+            display: flex;
+            gap: 28px;
+            overflow-x: auto;
+            padding: 16px 0 20px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) transparent;
+        }
+        .testimonial-slider::-webkit-scrollbar {
+            height: 4px;
+        }
+        .testimonial-slider::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 10px;
+        }
+        .testimonial-slider .glass-card {
+            min-width: 300px;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+        }
+        .stars {
+            color: var(--gold);
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
 
-    /* ----- FAQ (refined) ----- */
-    .faq-item {
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 18px 0;
-    }
-    .faq-question {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 600;
-      cursor: pointer;
-      color: white;
-      font-size: 1.05rem;
-      padding: 4px 0;
-      transition: color 0.2s;
-    }
-    .faq-question:hover { color: var(--gold); }
-    .faq-question span {
-      transition: transform 0.3s;
-      font-size: 1.4rem;
-      line-height: 1;
-    }
-    .faq-question.active span { transform: rotate(45deg); }
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.3s;
-      color: var(--text-secondary);
-    }
-    .faq-answer.open {
-      max-height: 200px;
-      padding-top: 12px;
-    }
+        /* ----- FAQ ----- */
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 18px 0;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            cursor: pointer;
+            color: white;
+            font-size: 1.05rem;
+            padding: 4px 0;
+            transition: color 0.2s;
+        }
+        .faq-question:hover {
+            color: var(--gold);
+        }
+        .faq-question span {
+            transition: transform 0.3s;
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+        .faq-question.active span {
+            transform: rotate(45deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s;
+            color: var(--text-secondary);
+        }
+        .faq-answer.open {
+            max-height: 200px;
+            padding-top: 12px;
+        }
 
-    /* ----- CONTACT (refined) ----- */
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 14px 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px;
-      color: white;
-      font-size: 1rem;
-      transition: 0.2s;
-      margin-bottom: 14px;
-      font-family: var(--font);
-    }
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-      outline: none;
-      border-color: var(--gold);
-      background: rgba(255,255,255,0.07);
-    }
-    .contact-form textarea { resize: vertical; }
+        /* ----- CONTACT ----- */
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            color: white;
+            font-size: 1rem;
+            transition: 0.2s;
+            margin-bottom: 14px;
+            font-family: var(--font);
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.07);
+        }
+        .contact-form textarea {
+            resize: vertical;
+        }
 
-    /* ----- FOOTER (refined) ----- */
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.04);
-      padding: 50px 0 30px;
-      background: rgba(0,0,0,0.2);
-    }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1.5fr;
-      gap: 40px;
-    }
-    .footer-grid h4 {
-      color: white;
-      margin-bottom: 12px;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    .footer-grid a {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      line-height: 2.2;
-      transition: color 0.2s;
-    }
-    .footer-grid a:hover { color: var(--gold); }
-    .footer-grid input {
-      padding: 10px 14px;
-      border-radius: 40px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: transparent;
-      color: white;
-      width: 100%;
-      font-family: var(--font);
-    }
-    .footer-grid input:focus {
-      outline: none;
-      border-color: var(--gold);
-    }
-    .footer-grid button {
-      margin-top: 10px;
-      padding: 8px 22px;
-      border-radius: 40px;
-      background: var(--gold);
-      border: none;
-      color: #0F172A;
-      font-weight: 600;
-      transition: 0.2s;
-    }
-    .footer-grid button:hover {
-      background: #e4c45a;
-      transform: scale(1.02);
-    }
+        /* ----- FOOTER ----- */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 50px 0 30px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+        }
+        .footer-grid h4 {
+            color: white;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .footer-grid a {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 2.2;
+            transition: color 0.2s;
+        }
+        .footer-grid a:hover {
+            color: var(--gold);
+        }
+        .footer-grid input {
+            padding: 10px 14px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            color: white;
+            width: 100%;
+            font-family: var(--font);
+        }
+        .footer-grid input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        .footer-grid button {
+            margin-top: 10px;
+            padding: 8px 22px;
+            border-radius: 40px;
+            background: var(--gold);
+            border: none;
+            color: #0F172A;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .footer-grid button:hover {
+            background: #e4c45a;
+            transform: scale(1.02);
+        }
 
-    /* ----- BACK TO TOP ----- */
-    #back-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 999;
-      background: var(--gold);
-      border: none;
-      color: #0F172A;
-      width: 48px;
-      height: 48px;
-      border-radius: 60px;
-      font-size: 1.4rem;
-      font-weight: 700;
-      box-shadow: 0 8px 24px rgba(212,175,55,0.4);
-      opacity: 0;
-      transform: scale(0.8);
-      transition: 0.3s;
-      pointer-events: none;
-    }
-    #back-top.show {
-      opacity: 1;
-      transform: scale(1);
-      pointer-events: auto;
-    }
-    #back-top:hover { transform: scale(1.08); }
+        /* ----- BACK TO TOP ----- */
+        #back-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            background: var(--gold);
+            border: none;
+            color: #0F172A;
+            width: 48px;
+            height: 48px;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: 0.3s;
+            pointer-events: none;
+        }
+        #back-top.show {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        #back-top:hover {
+            transform: scale(1.08);
+        }
 
-    /* ----- REVEAL (refined) ----- */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+        /* ----- REVEAL ----- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    /* ----- COUNTER (statistics) ----- */
-    .counter {
-      font-size: 3rem;
-      font-weight: 700;
-      color: white;
-      letter-spacing: -1px;
-    }
+        /* ----- COUNTER ----- */
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -1px;
+        }
 
-    /* ----- RESPONSIVE (refined) ----- */
-    @media (max-width: 1024px) {
-      .grid-3 { grid-template-columns: repeat(2,1fr); }
-      .gallery-grid { grid-template-columns: repeat(2,1fr); }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .hero-content h1 { font-size: 2.8rem; }
-      .grid-3, .grid-2 { grid-template-columns: 1fr; }
-      .stats { gap: 20px; flex-wrap: wrap; }
-      .gallery-grid { grid-template-columns: 1fr 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .section-title { font-size: 2.4rem; }
-      .counter { font-size: 2.4rem; }
-    }
-    @media (max-width: 480px) {
-      .container { padding: 0 16px; }
-      .hero-content h1 { font-size: 2.2rem; }
-      .typing-wrap { font-size: 1.1rem; }
-      .gallery-grid { grid-template-columns: 1fr; }
-      .stats span { font-size: 1.5rem; }
-    }
-  </style>
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .stats {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 2.4rem;
+            }
+            .counter {
+                font-size: 2.4rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .typing-wrap {
+                font-size: 1.1rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats span {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- LOADER -->
-  <div id="loader">
-    <div class="loader-ring"></div>
-    <p>LOADING</p>
-  </div>
-
-  <!-- PROGRESS BAR -->
-  <div id="progress-bar"></div>
-
-  <!-- MOUSE GLOW -->
-  <div id="glow"></div>
-
-  <!-- NAVIGATION -->
-  <nav id="navbar">
-    <div class="logo">📖 Bookworm</div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#facilities">Facilities</a></li>
-      <li><a href="#plans">Plans</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#about">About</a>
-      <a href="#facilities">Facilities</a>
-      <a href="#plans">Plans</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#contact">Contact</a>
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="loader-ring"></div>
+        <p>LOADING</p>
     </div>
-  </nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-bg-blob"></div>
-    <div class="container hero-content">
-      <h1><span class="gold">Read</span> • <span class="gold">Focus</span> • <span class="gold">Recharge</span></h1>
-      <div class="typing-wrap" id="typingText"></div>
-      <div style="display:flex; gap:16px; flex-wrap:wrap;">
-        <a href="#plans" class="btn btn-gold">Join Now</a>
-        <a href="#about" class="btn btn-ghost">Visit Library</a>
-      </div>
-      <div class="stats">
-        <div><span id="statBooks">0</span><small>Books</small></div>
-        <div><span id="statMembers">0</span><small>Members</small></div>
-        <div><span id="statCabins">0</span><small>Study Cabins</small></div>
-      </div>
+    <!-- PROGRESS BAR -->
+    <div id="progress-bar"></div>
+
+    <!-- MOUSE GLOW -->
+    <div id="glow"></div>
+
+    <!-- NAVIGATION -->
+    <nav id="navbar">
+        <div class="logo">📖 Bookworm</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#facilities">Facilities</a></li>
+            <li><a href="#plans">Plans</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#about">About</a>
+            <a href="#facilities">Facilities</a>
+            <a href="#plans">Plans</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-bg-blob"></div>
+        <div class="container hero-content">
+            <h1><span class="gold">Read</span> • <span class="gold">Focus</span> • <span class="gold">Recharge</span></h1>
+            <div class="typing-wrap" id="typingText"></div>
+            <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                <a href="#plans" class="btn btn-gold">Join Now</a>
+                <a href="#about" class="btn btn-ghost">Visit Library</a>
+            </div>
+            <div class="stats">
+                <div><span id="statBooks">0</span><small>Books</small></div>
+                <div><span id="statMembers">0</span><small>Members</small></div>
+                <div><span id="statCabins">0</span><small>Study Cabins</small></div>
+            </div>
+        </div>
+        <div class="scroll-indicator">⌄ SCROLL</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="container reveal">
+            <h2 class="section-title">A sanctuary for readers</h2>
+            <p class="section-sub">Bookworm Study Club is a premium library designed for deep focus, comfort, and community.</p>
+            <div class="grid-2" style="margin-top:30px;">
+                <div class="glass-card"><h3>📖 Peaceful Environment</h3><p>Silent zones, soft lighting, and ergonomic seating for uninterrupted reading.</p></div>
+                <div class="glass-card"><h3>☕ Inbuilt Café</h3><p>Enjoy freshly brewed coffee, tea, and light snacks while you read.</p></div>
+                <div class="glass-card"><h3>🕌 Prayer Room</h3><p>A quiet, serene space for reflection and prayer.</p></div>
+                <div class="glass-card"><h3>📶 High-Speed Wi-Fi</h3><p>Stay connected with blazing fast internet throughout the library.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FACILITIES -->
+    <section id="facilities">
+        <div class="container reveal">
+            <h2 class="section-title">Premium facilities</h2>
+            <div class="grid-3">
+                <div class="glass-card"><div class="feature-icon">📚</div><h4>Separate Study Cabins</h4><p>Private, soundproof cabins for focused work.</p></div>
+                <div class="glass-card"><div class="feature-icon">📖</div><h4>Quiet Reading Space</h4><p>Expansive halls with natural light and silence.</p></div>
+                <div class="glass-card"><div class="feature-icon">☕</div><h4>Inbuilt Café</h4><p>Premium beverages and snacks.</p></div>
+                <div class="glass-card"><div class="feature-icon">🕌</div><h4>Prayer Room</h4><p>Calm, clean, and private.</p></div>
+                <div class="glass-card"><div class="feature-icon">🔒</div><h4>Locker Facility</h4><p>Secure lockers for your belongings.</p></div>
+                <div class="glass-card"><div class="feature-icon">✏️</div><h4>Stationery Available</h4><p>Pens, notebooks, and more at the desk.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AMENITIES -->
+    <section id="amenities">
+        <div class="container reveal">
+            <h2 class="section-title">Amenities</h2>
+            <div class="grid-3">
+                <div class="glass-card" style="text-align:center;"><span style="font-size:2.8rem;">📶</span><h4>High-Speed Wi-Fi</h4></div>
+                <div class="glass-card" style="text-align:center;"><span style="font-size:2.8rem;">🔌</span><h4>Charging Stations</h4></div>
+                <div class="glass-card" style="text-align:center;"><span style="font-size:2.8rem;">❄️</span><h4>Air Conditioning</h4></div>
+                <div class="glass-card" style="text-align:center;"><span style="font-size:2.8rem;">🚗</span><h4>Car Parking</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE -->
+    <section id="why">
+        <div class="container reveal">
+            <h2 class="section-title">Why choose us</h2>
+            <div class="grid-3">
+                <div class="glass-card"><h4>🧘 Peaceful Atmosphere</h4><p>Designed for calm and concentration.</p></div>
+                <div class="glass-card"><h4>⚡ Fast Internet</h4><p>Fibre-optic Wi-Fi with 99.9% uptime.</p></div>
+                <div class="glass-card"><h4>🪑 Comfortable Seating</h4><p>Ergonomic chairs and spacious desks.</p></div>
+                <div class="glass-card"><h4>✨ Modern Facilities</h4><p>Smart lighting, power outlets, and more.</p></div>
+                <div class="glass-card"><h4>🛡️ Safe Environment</h4><p>24/7 security and CCTV coverage.</p></div>
+                <div class="glass-card"><h4>🏆 Premium Experience</h4><p>Luxury feel at an affordable price.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLANS -->
+    <section id="plans">
+        <div class="container reveal">
+            <h2 class="section-title">Membership plans</h2>
+            <div class="grid-3">
+                <div class="glass-card plan-card"><h3>Registration</h3><div class="price">₹500</div><p>One-time fee</p><a href="#" class="btn btn-ghost">Register</a></div>
+                <div class="glass-card plan-card"><h3>Monthly</h3><div class="price">₹1599</div><p>Per month</p><a href="#" class="btn btn-ghost">Choose</a></div>
+                <div class="glass-card plan-card" style="border-color:var(--gold);"><div class="ribbon">Best Value</div><h3>Bi-Annual</h3><div class="price">₹7999</div><p class="save">Save ₹1601 · 16.7% OFF</p><a href="#" class="btn btn-gold">Join</a></div>
+                <div class="glass-card plan-card" style="border-color:var(--gold);"><div class="ribbon">Premium</div><h3>Annual</h3><div class="price">₹15999</div><p class="save">Save ₹3201 · 16.7% OFF</p><a href="#" class="btn btn-gold">Join</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery">
+        <div class="container reveal">
+            <h2 class="section-title">Gallery</h2>
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item" data-label="Library"><div class="placeholder">📸 Library</div></div>
+                <div class="gallery-item" data-label="Study Cabins"><div class="placeholder">🪑 Study Cabins</div></div>
+                <div class="gallery-item" data-label="Café"><div class="placeholder">☕ Café</div></div>
+                <div class="gallery-item" data-label="Prayer Room"><div class="placeholder">🕌 Prayer Room</div></div>
+                <div class="gallery-item" data-label="Reading Lounge"><div class="placeholder">🛋️ Reading Lounge</div></div>
+                <div class="gallery-item" data-label="Bookshelves"><div class="placeholder">📚 Bookshelves</div></div>
+                <div class="gallery-item" data-label="Parking"><div class="placeholder">🚗 Parking</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <span style="position:absolute;top:30px;right:40px;font-size:2rem;cursor:pointer;color:white;z-index:10;" id="closeLightbox">✕</span>
+        <div style="background:#1a1f2e;border-radius:20px;padding:40px;max-width:80%;max-height:80%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:2rem;text-align:center;" id="lightboxContent">📸 Gallery Image</div>
     </div>
-    <div class="scroll-indicator">⌄ SCROLL</div>
-  </section>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="container reveal">
-      <h2 class="section-title">A sanctuary for readers</h2>
-      <p class="section-sub">Bookworm Study Club is a premium library designed for deep focus, comfort, and community.</p>
-      <div class="grid-2" style="margin-top:30px;">
-        <div class="glass-card"><h3>📖 Peaceful Environment</h3><p>Silent zones, soft lighting, and ergonomic seating for uninterrupted reading.</p></div>
-        <div class="glass-card"><h3>☕ Inbuilt Café</h3><p>Enjoy freshly brewed coffee, tea, and light snacks while you read.</p></div>
-        <div class="glass-card"><h3>🕌 Prayer Room</h3><p>A quiet, serene space for reflection and prayer.</p></div>
-        <div class="glass-card"><h3>📶 High-Speed Wi-Fi</h3><p>Stay connected with blazing fast internet throughout the library.</p></div>
-      </div>
-    </div>
-  </section>
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
+        <div class="container reveal">
+            <h2 class="section-title">Member stories</h2>
+            <div class="testimonial-slider" id="testimonialSlider">
+                <div class="glass-card"><div class="stars">★★★★★</div><p>"The most peaceful library I've been to. The café is a bonus."</p><strong>— Ananya, Freelancer</strong></div>
+                <div class="glass-card"><div class="stars">★★★★★</div><p>"I wrote my entire book here. The silence and comfort are unmatched."</p><strong>— Vikram, Author</strong></div>
+                <div class="glass-card"><div class="stars">★★★★★</div><p>"Prayer room and lockers – they've thought of everything."</p><strong>— Fatima, Researcher</strong></div>
+                <div class="glass-card"><div class="stars">★★★★★</div><p>"Best study space in the city. The ambiance is just perfect."</p><strong>— Rahul, UPSC Aspirant</strong></div>
+            </div>
+        </div>
+    </section>
 
-  <!-- FACILITIES -->
-  <section id="facilities">
-    <div class="container reveal">
-      <h2 class="section-title">Premium facilities</h2>
-      <div class="grid-3">
-        <div class="glass-card"><div class="feature-icon">📚</div><h4>Separate Study Cabins</h4><p>Private, soundproof cabins for focused work.</p></div>
-        <div class="glass-card"><div class="feature-icon">📖</div><h4>Quiet Reading Space</h4><p>Expansive halls with natural light and silence.</p></div>
-        <div class="glass-card"><div class="feature-icon">☕</div><h4>Inbuilt Café</h4><p>Premium beverages and snacks.</p></div>
-        <div class="glass-card"><div class="feature-icon">🕌</div><h4>Prayer Room</h4><p>Calm, clean, and private.</p></div>
-        <div class="glass-card"><div class="feature-icon">🔒</div><h4>Locker Facility</h4><p>Secure lockers for your belongings.</p></div>
-        <div class="glass-card"><div class="feature-icon">✏️</div><h4>Stationery Available</h4><p>Pens, notebooks, and more at the desk.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- AMENITIES -->
-  <section id="amenities">
-    <div class="container reveal">
-      <h2 class="section-title">Amenities</h2>
-      <div class="grid-3">
-        <div class="glass-card" style="text-align:center;"><span style="font-size:2.8rem;">📶</span><h4>High-Speed Wi-Fi</h4></div>
-        <div class="glass-card" style="text-align:center;"><span style="font-size:2.8rem;">🔌</span><h4>Charging Stations</h4></div>
-        <div class="glass-card" style="text-align:center;"><span style="font-size:2.8rem;">❄️</span><h4>Air Conditioning</h4></div>
-        <div class="glass-card" style="text-align:center;"><span style="font-size:2.8rem;">🚗</span><h4>Car Parking</h4></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHY CHOOSE -->
-  <section id="why">
-    <div class="container reveal">
-      <h2 class="section-title">Why choose us</h2>
-      <div class="grid-3">
-        <div class="glass-card"><h4>🧘 Peaceful Atmosphere</h4><p>Designed for calm and concentration.</p></div>
-        <div class="glass-card"><h4>⚡ Fast Internet</h4><p>Fibre-optic Wi-Fi with 99.9% uptime.</p></div>
-        <div class="glass-card"><h4>🪑 Comfortable Seating</h4><p>Ergonomic chairs and spacious desks.</p></div>
-        <div class="glass-card"><h4>✨ Modern Facilities</h4><p>Smart lighting, power outlets, and more.</p></div>
-        <div class="glass-card"><h4>🛡️ Safe Environment</h4><p>24/7 security and CCTV coverage.</p></div>
-        <div class="glass-card"><h4>🏆 Premium Experience</h4><p>Luxury feel at an affordable price.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PLANS -->
-  <section id="plans">
-    <div class="container reveal">
-      <h2 class="section-title">Membership plans</h2>
-      <div class="grid-3">
-        <div class="glass-card plan-card"><h3>Registration</h3><div class="price">₹500</div><p>One-time fee</p><a href="#" class="btn btn-ghost">Register</a></div>
-        <div class="glass-card plan-card"><h3>Monthly</h3><div class="price">₹1599</div><p>Per month</p><a href="#" class="btn btn-ghost">Choose</a></div>
-        <div class="glass-card plan-card" style="border-color:var(--gold);"><div class="ribbon">Best Value</div><h3>Bi-Annual</h3><div class="price">₹7999</div><p class="save">Save ₹1601 · 16.7% OFF</p><a href="#" class="btn btn-gold">Join</a></div>
-        <div class="glass-card plan-card" style="border-color:var(--gold);"><div class="ribbon">Premium</div><h3>Annual</h3><div class="price">₹15999</div><p class="save">Save ₹3201 · 16.7% OFF</p><a href="#" class="btn btn-gold">Join</a></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section id="gallery">
-    <div class="container reveal">
-      <h2 class="section-title">Gallery</h2>
-      <div class="gallery-grid" id="galleryGrid">
-        <div class="gallery-item" data-label="Library"><div class="placeholder">📸 Library</div></div>
-        <div class="gallery-item" data-label="Study Cabins"><div class="placeholder">🪑 Study Cabins</div></div>
-        <div class="gallery-item" data-label="Café"><div class="placeholder">☕ Café</div></div>
-        <div class="gallery-item" data-label="Prayer Room"><div class="placeholder">🕌 Prayer Room</div></div>
-        <div class="gallery-item" data-label="Reading Lounge"><div class="placeholder">🛋️ Reading Lounge</div></div>
-        <div class="gallery-item" data-label="Bookshelves"><div class="placeholder">📚 Bookshelves</div></div>
-        <div class="gallery-item" data-label="Parking"><div class="placeholder">🚗 Parking</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox">
-    <span style="position:absolute;top:30px;right:40px;font-size:2rem;cursor:pointer;color:white;z-index:10;" id="closeLightbox">✕</span>
-    <div style="background:#1a1f2e;border-radius:20px;padding:40px;max-width:80%;max-height:80%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:2rem;text-align:center;" id="lightboxContent">📸 Gallery Image</div>
-  </div>
-
-  <!-- TESTIMONIALS -->
-  <section id="testimonials">
-    <div class="container reveal">
-      <h2 class="section-title">Member stories</h2>
-      <div class="testimonial-slider" id="testimonialSlider">
-        <div class="glass-card"><div class="stars">★★★★★</div><p>"The most peaceful library I've been to. The café is a bonus."</p><strong>— Ananya, Freelancer</strong></div>
-        <div class="glass-card"><div class="stars">★★★★★</div><p>"I wrote my entire book here. The silence and comfort are unmatched."</p><strong>— Vikram, Author</strong></div>
-        <div class="glass-card"><div class="stars">★★★★★</div><p>"Prayer room and lockers – they've thought of everything."</p><strong>— Fatima, Researcher</strong></div>
-        <div class="glass-card"><div class="stars">★★★★★</div><p>"Best study space in the city. The ambiance is just perfect."</p><strong>— Rahul, UPSC Aspirant</strong></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STATISTICS -->
-  <section id="statistics">
-    <div class="container reveal">
-      <h2 class="section-title">By the numbers</h2>
-      <div class="grid-3" style="text-align:center;">
-        <div><span id="counterBooks" class="counter">0</span><p>Books</p></div>
-        <div><span id="counterMembers" class="counter">0</span><p>Members</p></div>
-        <div><span id="counterCabins
+    <!-- STATISTICS -->
+    <section id="statistics">
+        <div class="container reveal">
+            <h2 class="section-title">By the numbers</h2>
+            <div class="grid-3" style="text-align:center;">
+                <div><span id="counterBooks" class="counter">0</span><p>Books</p></div>
+                <div><span id="counterMembers" class="counter">0</span><p>Members</p></div>
+                <div><span id="counterCabins" class="counter">0</span><p>Study Cabins</p></div>
+                <div><span id="counterVisitors" class="counter">0</span><p>Daily Visitors</p></div>
+                <div><span id="counterYears
