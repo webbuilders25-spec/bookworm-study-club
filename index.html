@@ -37,11 +37,6 @@
             font-family: var(--font);
             line-height: 1.6;
             overflow-x: hidden;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        body.loaded {
-            opacity: 1;
         }
         a {
             color: inherit;
@@ -119,7 +114,6 @@
             pointer-events: none;
             z-index: 0;
             transform: translate(-50%, -50%);
-            will-change: transform;
         }
 
         /* NAVIGATION */
@@ -906,4 +900,7 @@
     <!-- FAQ -->
     <section id="faq">
         <div class="container reveal">
-            <h2 class="section-title">Frequently asked
+            <h2 class="section-title">Frequently asked</h2>
+            <div class="faq-item">
+                <div class="faq-question">What are the opening hours? <span>+</span></div>
+                <div class="faq-answer">We
