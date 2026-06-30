@@ -4,15 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bookworm Study Club – Premium Library & Café</title>
-    <meta name="description" content="Bookworm Study Club: premium library with café and prayer room. Read • Focus • Recharge." />
-    <link rel="canonical" href="https://bookwormstudyclub.com" />
+    <meta name="description" content="Bookworm Study Club: premium library with café and prayer room." />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 
     <style>
-        /* ----- RESET & VARIABLES ----- */
         * {
             margin: 0;
             padding: 0;
@@ -20,7 +18,6 @@
         }
         :root {
             --bg: #020617;
-            --navy: #0F172A;
             --glass: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.08);
             --text: #f0f2f8;
@@ -40,6 +37,11 @@
             font-family: var(--font);
             line-height: 1.6;
             overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        body.loaded {
+            opacity: 1;
         }
         a {
             color: inherit;
@@ -57,7 +59,7 @@
             padding: 0 28px;
         }
 
-        /* ----- LOADER ----- */
+        /* LOADER */
         #loader {
             position: fixed;
             inset: 0;
@@ -95,7 +97,7 @@
             font-size: 0.85rem;
         }
 
-        /* ----- PROGRESS BAR ----- */
+        /* PROGRESS BAR */
         #progress-bar {
             position: fixed;
             top: 0;
@@ -107,7 +109,7 @@
             transition: width 0.1s;
         }
 
-        /* ----- MOUSE GLOW ----- */
+        /* MOUSE GLOW */
         #glow {
             position: fixed;
             width: 400px;
@@ -117,9 +119,10 @@
             pointer-events: none;
             z-index: 0;
             transform: translate(-50%, -50%);
+            will-change: transform;
         }
 
-        /* ----- NAVIGATION ----- */
+        /* NAVIGATION */
         nav {
             position: fixed;
             top: 0;
@@ -136,7 +139,7 @@
             transition: background 0.3s, box-shadow 0.3s;
         }
         nav.scrolled {
-            background: rgba(2, 6, 23, 0.9);
+            background: rgba(2, 6, 23, 0.92);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
         }
         .logo {
@@ -214,7 +217,7 @@
             color: var(--gold);
         }
 
-        /* ----- BUTTONS ----- */
+        /* BUTTONS */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -223,14 +226,12 @@
             border-radius: 60px;
             font-weight: 600;
             border: none;
-            background: var(--glass);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(4px);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.08);
             transition: var(--transition);
             font-size: 0.95rem;
-            position: relative;
-            overflow: hidden;
         }
         .btn-gold {
             background: linear-gradient(135deg, #d4af37, #b8962e);
@@ -247,10 +248,9 @@
         }
         .btn-ghost:hover {
             background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.25);
         }
 
-        /* ----- SECTIONS ----- */
+        /* SECTIONS */
         section {
             padding: 90px 0;
             position: relative;
@@ -290,7 +290,7 @@
             margin-bottom: 10px;
         }
 
-        /* ----- HERO ----- */
+        /* HERO */
         #hero {
             min-height: 100vh;
             display: flex;
@@ -381,7 +381,7 @@
             }
         }
 
-        /* ----- GRID ----- */
+        /* GRID */
         .grid-3 {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -394,7 +394,7 @@
             gap: 28px;
         }
 
-        /* ----- PLANS ----- */
+        /* PLANS */
         .plan-card {
             position: relative;
             text-align: center;
@@ -427,7 +427,7 @@
             margin-top: 16px;
         }
 
-        /* ----- GALLERY ----- */
+        /* GALLERY */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -459,7 +459,7 @@
             font-weight: 500;
         }
 
-        /* ----- LIGHTBOX ----- */
+        /* LIGHTBOX */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -474,7 +474,7 @@
             display: flex;
         }
 
-        /* ----- TESTIMONIALS ----- */
+        /* TESTIMONIALS */
         .testimonial-slider {
             display: flex;
             gap: 28px;
@@ -504,7 +504,7 @@
             margin-bottom: 6px;
         }
 
-        /* ----- FAQ ----- */
+        /* FAQ */
         .faq-item {
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             padding: 18px 0;
@@ -541,7 +541,7 @@
             padding-top: 12px;
         }
 
-        /* ----- CONTACT ----- */
+        /* CONTACT */
         .contact-form input,
         .contact-form textarea {
             width: 100%;
@@ -565,7 +565,7 @@
             resize: vertical;
         }
 
-        /* ----- FOOTER ----- */
+        /* FOOTER */
         footer {
             border-top: 1px solid rgba(255, 255, 255, 0.04);
             padding: 50px 0 30px;
@@ -619,7 +619,7 @@
             transform: scale(1.02);
         }
 
-        /* ----- BACK TO TOP ----- */
+        /* BACK TO TOP */
         #back-top {
             position: fixed;
             bottom: 30px;
@@ -648,7 +648,7 @@
             transform: scale(1.08);
         }
 
-        /* ----- REVEAL ----- */
+        /* REVEAL */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -659,7 +659,7 @@
             transform: translateY(0);
         }
 
-        /* ----- COUNTER ----- */
+        /* COUNTER */
         .counter {
             font-size: 3rem;
             font-weight: 700;
@@ -667,7 +667,7 @@
             letter-spacing: -1px;
         }
 
-        /* ----- RESPONSIVE ----- */
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
             .grid-3 {
                 grid-template-columns: repeat(2, 1fr);
@@ -898,4 +898,12 @@
                 <div><span id="counterMembers" class="counter">0</span><p>Members</p></div>
                 <div><span id="counterCabins" class="counter">0</span><p>Study Cabins</p></div>
                 <div><span id="counterVisitors" class="counter">0</span><p>Daily Visitors</p></div>
-                <div><span id="counterYears
+                <div><span id="counterYears" class="counter">0</span><p>Years Serving</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+        <div class="container reveal">
+            <h2 class="section-title">Frequently asked
